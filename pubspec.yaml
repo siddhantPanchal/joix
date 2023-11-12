@@ -1,7 +1,7 @@
 name: joix
 description: A versatile dart validation library for expressive and fluent data schema validation
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+repository: https://github.com/siddhantPanchal/joix
 
 environment:
   sdk: ^3.1.0
