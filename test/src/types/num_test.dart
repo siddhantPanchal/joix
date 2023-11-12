@@ -178,5 +178,79 @@ void main() {
         },
       );
     });
+
+    group('JoiNumberX decimal Validation', () {
+      test(
+        'Passes when valid positive integer value is given',
+        () {
+          // arrange
+          final joiNumber = 42.joi();
+
+          // act
+          final result = joiNumber.decimal().validate();
+
+          // assert
+          checkForPass(result);
+        },
+      );
+
+      test(
+        'Passes when valid positive decimal value is given',
+        () {
+          // arrange
+          final joiNumber = 123.45.joi();
+
+          // act
+          final result = joiNumber.decimal().validate();
+
+          // assert
+          checkForPass(result);
+        },
+      );
+
+      test(
+        'Passes when valid negative decimal value is given',
+        () {
+          // arrange
+          final joiNumber = (-123.45).joi();
+
+          // act
+          final result = joiNumber.decimal().validate();
+
+          // assert
+          checkForPass(result);
+        },
+      );
+    });
+
+    group('JoiNumberX limit Validation', () {
+      test(
+        'Passes when value length matches the specified limit',
+        () {
+          // arrange
+          final joiNumber = 12345.joi();
+
+          // act
+          final result = joiNumber.limit(5).validate();
+
+          // assert
+          checkForPass(result);
+        },
+      );
+
+      test(
+        'Fails when value length does not match the specified limit',
+        () {
+          // arrange
+          final joiNumber = 987654321.joi();
+
+          // act
+          final result = joiNumber.limit(5).validate();
+
+          // assert
+          checkForFail(result, 'Must be exactly 5 characters long');
+        },
+      );
+    });
   });
 }
