@@ -134,5 +134,49 @@ void main() {
         },
       );
     });
+
+    group('JoiNumberX negative Validation', () {
+      test(
+        'When valid negative integer value is given, validation must pass',
+        () {
+          // arrange
+          final joiNumber = (-42).joi();
+
+          // act
+          final result = joiNumber.negative().validate();
+
+          // assert
+          checkForPass(result);
+        },
+      );
+
+      test(
+        'When valid negative decimal value is given, validation must pass',
+        () {
+          // arrange
+          final joiNumber = (-123.45).joi();
+
+          // act
+          final result = joiNumber.negative().validate();
+
+          // assert
+          checkForPass(result);
+        },
+      );
+
+      test(
+        'When invalid positive integer value is given, validation must fail',
+        () {
+          // arrange
+          final joiNumber = 15.joi();
+
+          // act
+          final result = joiNumber.negative().validate();
+
+          // assert
+          checkForFail(result, 'Must be a negative integer');
+        },
+      );
+    });
   });
 }
