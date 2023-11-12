@@ -1,6 +1,8 @@
 import 'package:joix/joix.dart';
 
 void main() {
-  var awesome = Awesome();
-  print('awesome: ${awesome.isAwesome}');
+  final joiString = "some value".joi();
+  final result =
+      joiString.notEmpty().start("some").end("ue").required().validate();
+  print(result.toString());
 }
