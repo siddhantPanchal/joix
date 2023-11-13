@@ -1,4 +1,5 @@
 typedef Integer = int;
+typedef Double = double;
 
 final class JoiIdentifier {
   static Integer _custom = -1;
@@ -17,6 +18,7 @@ final class JoiIdentifier {
   // * number methods
   static String get int => "int";
   static String get decimal => "decimal";
+  static String get double => "double";
   static String get positive => "positive";
   static String get negative => "negative";
   static String get min => "min";

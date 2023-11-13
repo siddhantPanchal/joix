@@ -1,5 +1,3 @@
-
-
 import '../error.dart';
 import '../identifier.dart';
 import '../joix_base.dart';
@@ -54,7 +52,7 @@ class JoiNumberX extends JoiX<num> implements Limitable<num> {
         if (value > 0) {
           throw const JoiTypeException("Must be a negative integer");
         }
-      }, 
+      },
     ));
     return this;
   }
@@ -68,6 +66,18 @@ class JoiNumberX extends JoiX<num> implements Limitable<num> {
           value.toString(),
           message ?? 'Must be a valid decimal number',
         );
+      },
+    ));
+    return this;
+  }
+
+  JoiNumberX double({String? message}) {
+    _compressor.registerValidator(JoiValidator(
+      identifier: JoiIdentifier.double,
+      validator: (value) {
+        if (value is! Double) {
+          throw JoiTypeException("Must be a valid double number");
+        }
       },
     ));
     return this;
