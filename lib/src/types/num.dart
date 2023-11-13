@@ -3,9 +3,8 @@ import '../identifier.dart';
 import '../joix_base.dart';
 import '../validator/validator.dart';
 import '../validator/validator_compressor.dart';
-import 'interfaces/measurable.dart';
 
-class JoiNumberX extends JoiX<num> implements Limitable<num> {
+class JoiNumberX extends JoiX<num> {
   final num? _value;
   final ValidatorCompressor<num> _compressor;
 
@@ -77,21 +76,6 @@ class JoiNumberX extends JoiX<num> implements Limitable<num> {
       validator: (value) {
         if (value is! Double) {
           throw JoiTypeException("Must be a valid double number");
-        }
-      },
-    ));
-    return this;
-  }
-
-  @override
-  JoiNumberX limit(Integer length, {String? message}) {
-    _compressor.registerValidator(JoiValidator(
-      identifier: JoiIdentifier.limit,
-      validator: (value) {
-        if (value.toString().length != length) {
-          throw JoiTypeException(
-            message ?? 'Must be exactly $length characters long',
-          );
         }
       },
     ));

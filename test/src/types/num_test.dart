@@ -223,36 +223,6 @@ void main() {
       );
     });
 
-    group('JoiNumberX limit Validation', () {
-      test(
-        'Passes when value length matches the specified limit',
-        () {
-          // arrange
-          final joiNumber = 12345.joi();
-
-          // act
-          final result = joiNumber.limit(5).validate();
-
-          // assert
-          checkForPass(result);
-        },
-      );
-
-      test(
-        'Fails when value length does not match the specified limit',
-        () {
-          // arrange
-          final joiNumber = 987654321.joi();
-
-          // act
-          final result = joiNumber.limit(5).validate();
-
-          // assert
-          checkForFail(result, 'Must be exactly 5 characters long');
-        },
-      );
-    });
-
     group('JoiNumberX double Validation', () {
       test("Valid double number", () {
         // arrange
