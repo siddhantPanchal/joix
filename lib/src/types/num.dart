@@ -1,6 +1,5 @@
-import '../error.dart';
-import '../identifier.dart';
-import '../joix_base.dart';
+import 'package:joix/joix.dart';
+
 import '../validator/validator.dart';
 import '../validator/validator_compressor.dart';
 
@@ -37,7 +36,7 @@ class JoiNumberX extends JoiX<num> {
       identifier: JoiIdentifier.positive,
       validator: (value) {
         if (value < 0) {
-          throw const JoiTypeException("Must be a positive integer");
+          throw JoiTypeException(message ?? "Must be a positive integer");
         }
       },
     ));
@@ -49,7 +48,7 @@ class JoiNumberX extends JoiX<num> {
       identifier: JoiIdentifier.negative,
       validator: (value) {
         if (value > 0) {
-          throw const JoiTypeException("Must be a negative integer");
+          throw JoiTypeException(message ?? "Must be a negative integer");
         }
       },
     ));
@@ -76,6 +75,44 @@ class JoiNumberX extends JoiX<num> {
       validator: (value) {
         if (value is! Double) {
           throw JoiTypeException("Must be a valid double number");
+        }
+      },
+    ));
+    return this;
+  }
+
+  JoiNumberX divisible(num by, {String? message}) {
+    _compressor.registerValidator(JoiValidator(
+      identifier: JoiIdentifier.divisible,
+      validator: (value) {
+        if (value.remainder(by) != 0) {
+          throw JoiTypeException(message ?? "value is not divisible by $by");
+        }
+      },
+    ));
+    return this;
+  }
+
+  JoiNumberX min(num number, {String? message}) {
+    _compressor.registerValidator(JoiValidator(
+      identifier: JoiIdentifier.divisible,
+      validator: (value) {
+        if (value < number) {
+          throw JoiTypeException(message ?? "value must be less than $number");
+        }
+      },
+    ));
+    return this;
+  }
+
+  JoiNumberX max(num number, {String? message}) {
+    _compressor.registerValidator(JoiValidator(
+      identifier: JoiIdentifier.divisible,
+      validator: (value) {
+        if (value > number) {
+          throw JoiTypeException(
+            message ?? "value must be greater than $number",
+          );
         }
       },
     ));

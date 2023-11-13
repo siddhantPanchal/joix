@@ -19,6 +19,7 @@ final class JoiIdentifier {
   static String get int => "int";
   static String get decimal => "decimal";
   static String get double => "double";
+  static String get divisible => "divisible";
   static String get positive => "positive";
   static String get negative => "negative";
   static String get min => "min";
