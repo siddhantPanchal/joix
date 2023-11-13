@@ -252,5 +252,38 @@ void main() {
         },
       );
     });
+
+    group('JoiNumberX double Validation', () {
+      test("Valid double number", () {
+        // arrange
+        final joiNumber = 42.5.joi();
+
+        // act
+        final result = joiNumber.double().validate();
+
+        // assert
+        checkForPass(result);
+      });
+      test("negative double number", () {
+        // arrange
+        final joiNumber = (-42.5).joi();
+
+        // act
+        final result = joiNumber.double().validate();
+
+        // assert
+        checkForPass(result);
+      });
+      test("invalid double number", () {
+        // arrange
+        final joiNumber = 42.joi();
+
+        // act
+        final result = joiNumber.double().validate();
+
+        // assert
+        checkForFail(result, "Must be a valid double number");
+      });
+    });
   });
 }
