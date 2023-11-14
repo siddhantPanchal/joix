@@ -42,4 +42,5 @@ final class JoiIdentifier {
   static String get password => "password";
   static String get start => "start";
   static String get end => "end";
+  static String get invalid => "invalid";
 }

@@ -1050,5 +1050,40 @@ void main() {
         },
       );
     });
+
+    group("JoiStringX invalid validation", () {
+      test("when given value is not from given list, validation must pass", () {
+        final joiString = "string".joi();
+
+        final result =
+            joiString.invalid(["int", "double", "float", "bigint"]).validate();
+
+        checkForPass(result);
+      });
+      test(
+          "when given value(lowercase) is from given list(uppercase), case insensitive validation must fail",
+          () {
+        var s = "string";
+        final joiString = s.joi();
+
+        final result = joiString.invalid(["int", "double", "float", "String"],
+            caseSensitive: false).validate();
+
+        checkForFail(result, "$s is not valid value");
+      });
+      test(
+          "when given value(lowercase) is from given list(uppercase), case sensitive validation must pass",
+          () {
+        var s = "string";
+        final joiString = s.joi();
+
+        final result = joiString.invalid(
+          ["int", "double", "float", "String"],
+          caseSensitive: true,
+        ).validate();
+
+        checkForPass(result);
+      });
+    });
   });
 }

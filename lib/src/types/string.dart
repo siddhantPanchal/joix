@@ -441,6 +441,24 @@ final class JoiStringX extends JoiX<String>
     return this;
   }
 
+  JoiStringX invalid(List<String> list,
+      {String? message, bool caseSensitive = true}) {
+    _compressor.registerValidator(JoiValidator(
+      identifier: JoiIdentifier.invalid,
+      beforeValidation: (value) {
+        return value.trim();
+      },
+      validator: (value) {
+        value = caseSensitive ? value : value.toLowerCase();
+        list = caseSensitive ? list : list.map((e) => e.toLowerCase()).toList();
+        if (list.contains(value)) {
+          throw JoiTypeException("$value is not valid value");
+        }
+      },
+    ));
+    return this;
+  }
+
   @override
   String? get value => _value;
 }
