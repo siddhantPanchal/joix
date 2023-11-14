@@ -208,7 +208,8 @@ void main() {
         final joiString = "".joi();
 
         // act
-        final result = joiString.required().validate();
+        final result =
+            joiString.required(message: 'value is required').validate();
 
         // assert
         checkForFail(result, "value is required");
@@ -221,7 +222,8 @@ void main() {
         final joiString = " ".joi();
 
         // act
-        final result = joiString.required().validate();
+        final result =
+            joiString.required(message: 'value is required').validate();
 
         // assert
         checkForFail(result, "value is required");
@@ -272,7 +274,8 @@ void main() {
         final joiString = (null as String?).joi();
 
         // act
-        final result = joiString.required().validate();
+        final result =
+            joiString.required(message: 'value is required').validate();
 
         // assert
         checkForFail(result, "value is required");
@@ -526,7 +529,10 @@ void main() {
         final joiString = (map[""] as String?).joi();
 
         // act
-        final result = joiString.limit(8).required().validate();
+        final result = joiString
+            .limit(8)
+            .required(message: 'value is required')
+            .validate();
 
         // assert
         checkForFail(result, "value is required");

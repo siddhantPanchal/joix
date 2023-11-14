@@ -69,7 +69,8 @@ void main() {
           final joiNumber = <String, num?>{}[""].joi();
 
           // act
-          final result = joiNumber.int().required().validate();
+          final result =
+              joiNumber.int().required(message: 'value is required').validate();
 
           // assert
           checkForFail(result, 'value is required');
@@ -127,7 +128,10 @@ void main() {
           final joiNumber = <String, num?>{}[""].joi();
 
           // act
-          final result = joiNumber.positive().required().validate();
+          final result = joiNumber
+              .positive()
+              .required(message: 'value is required')
+              .validate();
 
           // assert
           checkForFail(result, 'value is required');

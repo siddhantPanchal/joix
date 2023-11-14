@@ -1,6 +1,4 @@
-import 'error.dart';
-import 'identifier.dart';
-import 'types/interfaces/defaultable.dart';
+import '../joix.dart';
 import 'validator/priority.dart';
 import 'validator/validator.dart';
 import 'validator/validator_compressor.dart';
@@ -10,6 +8,8 @@ abstract class JoiX<T> implements Defaultable<T> {
   final ValidatorCompressor<T> _compressor;
   T? get value;
 
+  String? name;
+
   JoiX(this._compressor);
 
   JoiX<T> required({String? message}) {
@@ -17,7 +17,10 @@ abstract class JoiX<T> implements Defaultable<T> {
       options: const ValidatorOptions(priority: JoiValidatorPriority.medium),
       identifier: JoiIdentifier.required,
       nullValidator: () {
-        throw JoiTypeException(message ?? "value is required");
+        throw JoiTypeException(
+          message ??
+              "The ${name ?? 'value'} is required. Please provide a valid value.",
+        );
       },
     ));
     return this;
@@ -39,6 +42,11 @@ abstract class JoiX<T> implements Defaultable<T> {
 
   JoiResult<T> validate() {
     return _compressor.validate(value);
+  }
+
+  @override
+  String toString() {
+    return value.toString();
   }
 }
 

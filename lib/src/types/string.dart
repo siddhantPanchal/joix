@@ -115,11 +115,15 @@ final class JoiStringX extends JoiX<String>
         return value.trim();
       },
       nullValidator: () {
-        throw JoiTypeException(message ?? "value is required");
+        throw JoiTypeException(
+          message ?? "The $name is required. Please provide a valid value.",
+        );
       },
       validator: (value) {
         if (value.isEmpty) {
-          throw JoiTypeException(message ?? "value is required");
+          throw JoiTypeException(
+            message ?? "The $name cannot be empty. Please provide a value.",
+          );
         }
       },
     ));

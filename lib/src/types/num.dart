@@ -7,7 +7,8 @@ class JoiNumberX extends JoiX<num> {
   final num? _value;
   final ValidatorCompressor<num> _compressor;
 
-  JoiNumberX(ValidatorCompressor<num> compressor, {required num? value})
+  JoiNumberX(ValidatorCompressor<num> compressor,
+      {required num? value})
       : _value = value,
         _compressor = compressor,
         super(compressor);
@@ -122,4 +123,5 @@ class JoiNumberX extends JoiX<num> {
       throw JoiTypeException(errorMessage);
     }
   }
+
 }
