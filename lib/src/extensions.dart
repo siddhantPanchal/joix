@@ -1,18 +1,16 @@
-
-
-import 'joix_base.dart';
 import 'types/num.dart';
 import 'types/string.dart';
+import 'validator/validator_compressor.dart';
 
 extension JoiString on String? {
   JoiStringX joi() {
-    return JoiX.string(this);
+    return JoiStringX(ValidatorCompressor<String>(), value: this);
   }
 }
 
 extension JoiNumber on num? {
   JoiNumberX joi() {
-    return JoiX.number(this);
+    return JoiNumberX(ValidatorCompressor<num>(), value: this);
   }
 }
 

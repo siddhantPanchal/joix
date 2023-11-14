@@ -1,27 +1,19 @@
 import 'error.dart';
 import 'identifier.dart';
 import 'types/interfaces/defaultable.dart';
-import 'types/num.dart';
-import 'types/string.dart';
 import 'validator/priority.dart';
 import 'validator/validator.dart';
 import 'validator/validator_compressor.dart';
 import 'validator/validator_options.dart';
 
 abstract class JoiX<T> implements Defaultable<T> {
-  ValidatorCompressor<T> get compressor;
+  final ValidatorCompressor<T> _compressor;
   T? get value;
 
-  static JoiStringX string(String? value) {
-    return JoiStringX(value: value);
-  }
-
-  static JoiNumberX number(num? value) {
-    return JoiNumberX(value: value);
-  }
+  JoiX(this._compressor);
 
   JoiX<T> required({String? message}) {
-    compressor.registerValidator(JoiValidator(
+    _compressor.registerValidator(JoiValidator(
       options: const ValidatorOptions(priority: JoiValidatorPriority.medium),
       identifier: JoiIdentifier.required,
       nullValidator: () {
@@ -33,7 +25,7 @@ abstract class JoiX<T> implements Defaultable<T> {
 
   @override
   JoiX<T> defaultValue(T value) {
-    compressor.registerValidator(
+    _compressor.registerValidator(
       JoiValidator(
         options: const ValidatorOptions(priority: JoiValidatorPriority.high),
         identifier: JoiIdentifier.defaultValue,
@@ -46,7 +38,7 @@ abstract class JoiX<T> implements Defaultable<T> {
   //     {String? message, bool caseSensitive = true});
 
   JoiResult<T> validate() {
-    return compressor.validate(value);
+    return _compressor.validate(value);
   }
 }
 

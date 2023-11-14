@@ -10,7 +10,7 @@ void main() {
           "when not empty string value is provided, then validation must success",
           () {
         // arrange
-        final joiString = JoiX.string("hello world");
+        final joiString = ("hello world").joi();
 
         // act
         final result = joiString.notEmpty().validate();
@@ -23,7 +23,7 @@ void main() {
           "when empty string value is provided, then validation must failed and throws JoiTypeException",
           () {
         // arrange
-        final joiString = JoiX.string("");
+        final joiString = ("").joi();
 
         // // act
         final result = joiString.notEmpty().validate();

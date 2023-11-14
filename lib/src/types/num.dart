@@ -7,12 +7,10 @@ class JoiNumberX extends JoiX<num> {
   final num? _value;
   final ValidatorCompressor<num> _compressor;
 
-  JoiNumberX({required num? value, ValidatorCompressor<num>? compressor})
+  JoiNumberX(ValidatorCompressor<num> compressor, {required num? value})
       : _value = value,
-        _compressor = compressor ?? ValidatorCompressor<num>();
-
-  @override
-  ValidatorCompressor<num> get compressor => _compressor;
+        _compressor = compressor,
+        super(compressor);
 
   @override
   num? get value => _value;

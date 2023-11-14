@@ -16,9 +16,10 @@ final class JoiStringX extends JoiX<String>
   final String? _value;
   final ValidatorCompressor<String> _compressor;
 
-  JoiStringX({required String? value, ValidatorCompressor<String>? compressor})
+  JoiStringX(ValidatorCompressor<String> compressor, {required String? value})
       : _value = value,
-        _compressor = compressor ?? ValidatorCompressor<String>();
+        _compressor = compressor,
+        super(compressor);
 
   JoiStringX notEmpty({String? message}) {
     _compressor.registerValidator(
@@ -439,9 +440,6 @@ final class JoiStringX extends JoiX<String>
     ));
     return this;
   }
-
-  @override
-  ValidatorCompressor<String> get compressor => _compressor;
 
   @override
   String? get value => _value;

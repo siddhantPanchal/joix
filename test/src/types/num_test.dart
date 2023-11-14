@@ -326,6 +326,7 @@ void main() {
         checkForPass(result);
       });
     });
+
     group("JoiNumber max validation", () {
       test(
           "given number in less that specified max number, validation should pass",
