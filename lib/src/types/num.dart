@@ -16,7 +16,7 @@ class JoiNumberX extends JoiX<num> {
   @override
   num? get value => _value;
 
-  JoiNumberX int({String? message}) {
+  void int({String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.int,
       validator: (value) {
@@ -27,10 +27,9 @@ class JoiNumberX extends JoiX<num> {
         );
       },
     ));
-    return this;
   }
 
-  JoiNumberX positive({String? message}) {
+  void positive({String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.positive,
       validator: (value) {
@@ -39,10 +38,9 @@ class JoiNumberX extends JoiX<num> {
         }
       },
     ));
-    return this;
   }
 
-  JoiNumberX negative({String? message}) {
+  void negative({String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.negative,
       validator: (value) {
@@ -51,10 +49,9 @@ class JoiNumberX extends JoiX<num> {
         }
       },
     ));
-    return this;
   }
 
-  JoiNumberX decimal({String? message}) {
+  void decimal({String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.decimal,
       validator: (value) {
@@ -65,10 +62,9 @@ class JoiNumberX extends JoiX<num> {
         );
       },
     ));
-    return this;
   }
 
-  JoiNumberX double({String? message}) {
+  void double({String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.double,
       validator: (value) {
@@ -77,10 +73,9 @@ class JoiNumberX extends JoiX<num> {
         }
       },
     ));
-    return this;
   }
 
-  JoiNumberX divisible(num by, {String? message}) {
+  void divisible(num by, {String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.divisible,
       validator: (value) {
@@ -89,10 +84,9 @@ class JoiNumberX extends JoiX<num> {
         }
       },
     ));
-    return this;
   }
 
-  JoiNumberX min(num number, {String? message}) {
+  void min(num number, {String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.divisible,
       validator: (value) {
@@ -101,10 +95,9 @@ class JoiNumberX extends JoiX<num> {
         }
       },
     ));
-    return this;
   }
 
-  JoiNumberX max(num number, {String? message}) {
+  void max(num number, {String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.divisible,
       validator: (value) {
@@ -115,7 +108,6 @@ class JoiNumberX extends JoiX<num> {
         }
       },
     ));
-    return this;
   }
 
   void _match(RegExp pattern, String value, String errorMessage) {

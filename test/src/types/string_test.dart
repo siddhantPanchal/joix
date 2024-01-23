@@ -13,10 +13,10 @@ void main() {
         final joiString = ("hello world").joi();
 
         // act
-        final result = joiString.notEmpty().validate();
+        final result = joiString..notEmpty();
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test(
@@ -26,10 +26,10 @@ void main() {
         final joiString = ("").joi();
 
         // // act
-        final result = joiString.notEmpty().validate();
+        final result = joiString..notEmpty();
 
         // assert
-        checkForFail(result, "value must not be empty");
+        checkForFail(result.validate(), "value must not be empty");
       });
 
       test(
@@ -39,10 +39,10 @@ void main() {
         final joiString = " ".joi();
 
         // // act
-        final result = joiString.notEmpty().validate();
+        final result = joiString..notEmpty();
 
         // assert
-        checkForFail(result, "value must not be empty");
+        checkForFail(result.validate(), "value must not be empty");
       });
     });
 
@@ -54,10 +54,10 @@ void main() {
         final joiString = "hello world".joi();
 
         // act
-        final result = joiString.min(4).validate();
+        final result = joiString..min(4);
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test(
@@ -67,10 +67,10 @@ void main() {
         final joiString = "hello".joi();
 
         // act
-        final result = joiString.min(8).validate();
+        final result = joiString..min(8);
 
         // assert
-        checkForFail(result, "value must be minimum 8 length long");
+        checkForFail(result.validate(), "value must be minimum 8 length long");
       });
     });
 
@@ -82,10 +82,10 @@ void main() {
         final joiString = "hello world".joi();
 
         // act
-        final result = joiString.max(11).validate();
+        final result = joiString..max(11);
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test(
@@ -95,10 +95,10 @@ void main() {
         final joiString = "hello".joi();
 
         // act
-        final result = joiString.max(4).validate();
+        final result = joiString..max(4);
 
         // assert
-        checkForFail(result, "value must be maximum 4 length long");
+        checkForFail(result.validate(), "value must be maximum 4 length long");
       });
     });
 
@@ -113,10 +113,10 @@ void main() {
         final joiString = "hEllo K world".joi();
 
         // act
-        final result = joiString.match(sampleRegex).validate();
+        final result = joiString..match(sampleRegex);
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test(
@@ -126,10 +126,10 @@ void main() {
         final joiString = "hello K".joi();
 
         // act
-        final result = joiString.match(sampleRegex).validate();
+        final result = joiString..match(sampleRegex);
 
         // assert
-        checkForFail(result, "not matched to the custom regex");
+        checkForFail(result.validate(), "not matched to the custom regex");
       });
     });
 
@@ -141,10 +141,10 @@ void main() {
         final joiString = "example@gmail.com".joi();
 
         // act
-        final result = joiString.email().validate();
+        final result = joiString..email();
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test(
@@ -154,10 +154,10 @@ void main() {
         final joiString = "user_name@example.com".joi();
 
         // act
-        final result = joiString.email().validate();
+        final result = joiString..email();
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test(
@@ -167,10 +167,10 @@ void main() {
         final joiString = "user-name@example.com".joi();
 
         // act
-        final result = joiString.email().validate();
+        final result = joiString..email();
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test(
@@ -180,10 +180,10 @@ void main() {
         final joiString = "hello K.com".joi();
 
         // act
-        final result = joiString.email().validate();
+        final result = joiString..email();
 
         // assert
-        checkForFail(result, "not a valid email address");
+        checkForFail(result.validate(), "not a valid email address");
       });
       test(
           "when invalid email (empty) value and invalid min length is provided, then validation must failed and throws JoiTypeException",
@@ -193,10 +193,10 @@ void main() {
 
         // act
         final result =
-            joiString.email().required(message: "email is required").validate();
+            joiString..email()..required(message: "email is required");
 
         // assert
-        checkForFail(result, "email is required");
+        checkForFail(result.validate(), "email is required");
       });
     });
 
@@ -209,10 +209,10 @@ void main() {
 
         // act
         final result =
-            joiString.required(message: 'value is required').validate();
+            joiString..required(message: 'value is required');
 
         // assert
-        checkForFail(result, "value is required");
+        checkForFail(result.validate(), "value is required");
       });
 
       test(
@@ -223,10 +223,10 @@ void main() {
 
         // act
         final result =
-            joiString.required(message: 'value is required').validate();
+            joiString..required(message: 'value is required');
 
         // assert
-        checkForFail(result, "value is required");
+        checkForFail(result.validate(), "value is required");
       });
 
       test(
@@ -236,10 +236,10 @@ void main() {
         final joiString = "some string".joi();
 
         // act
-        final result = joiString.required().validate();
+        final result = joiString..required();
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test(
@@ -249,10 +249,10 @@ void main() {
         final joiString = "some string".joi();
 
         // act
-        final result = joiString.min(8).max(10).required().validate();
+        final result = joiString..min(8)..max(10)..required();
 
         // assert
-        checkForFail(result, "value must be maximum 10 length long");
+        checkForFail(result.validate(), "value must be maximum 10 length long");
       });
 
       test(
@@ -262,10 +262,10 @@ void main() {
         final joiString = "someString".joi();
 
         // act
-        final result = joiString.min(8).max(10).required().validate();
+        final result = joiString..min(8)..max(10)..required();
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test("when null string value is given then validation must fail", () {
@@ -275,10 +275,10 @@ void main() {
 
         // act
         final result =
-            joiString.required(message: 'value is required').validate();
+            joiString..required(message: 'value is required');
 
         // assert
-        checkForFail(result, "value is required");
+        checkForFail(result.validate(), "value is required");
       });
     });
 
@@ -291,9 +291,9 @@ void main() {
         final joiString = (map[""]).joi();
 
         // act
-        final result = joiString.defaultValue("some value").validate();
+        final result = joiString..defaultValue("some value");
 
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test(
@@ -304,9 +304,9 @@ void main() {
 
         // act
         final result =
-            joiString.defaultValue("new value").required().validate();
+            joiString..defaultValue("new value")..required();
 
-        checkForPass(result);
+        checkForPass(result.validate());
         expect(result.value, "some value");
       });
     });
@@ -317,10 +317,10 @@ void main() {
         final joiString = "SGVsbG8gd29ybGQ=".joi();
 
         // act
-        final result = joiString.base64().validate();
+        final result = joiString..base64();
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test('Invalid Base64 String (Contains Invalid Characters)', () {
@@ -328,10 +328,10 @@ void main() {
         final joiString = "SGVsbG8gd29ybGQ=@".joi();
 
         // act
-        final result = joiString.base64().validate();
+        final result = joiString..base64();
 
         // assert
-        checkForFail(result, "Not a valid Base64 string");
+        checkForFail(result.validate(), "Not a valid Base64 string");
       });
 
       test('Invalid Base64 String (Incomplete Padding)', () {
@@ -339,10 +339,10 @@ void main() {
         final joiString = "SGVsbG8gd29ybGQ".joi();
 
         // act
-        final result = joiString.base64().validate();
+        final result = joiString..base64();
 
         // assert
-        checkForFail(result, "Invalid Base64 padding");
+        checkForFail(result.validate(), "Invalid Base64 padding");
       });
 
       test('Valid Base64 String (With Optional Padding)', () {
@@ -350,10 +350,10 @@ void main() {
         final joiString = "SGVsbG8gd29ybGQ".joi();
 
         // act
-        final result = joiString.base64().validate();
+        final result = joiString..base64();
 
         // assert
-        checkForFail(result, "Invalid Base64 padding");
+        checkForFail(result.validate(), "Invalid Base64 padding");
       });
     });
 
@@ -363,10 +363,10 @@ void main() {
         final joiString = "abc123".joi();
 
         // act
-        final result = joiString.alphanum().validate();
+        final result = joiString..alphanum();
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test('Valid Alphanumeric String with Uppercase Letters', () {
@@ -374,10 +374,10 @@ void main() {
         final joiString = "ABC123".joi();
 
         // act
-        final result = joiString.alphanum().validate();
+        final result = joiString..alphanum();
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test('Invalid Alphanumeric String (Contains Special Characters)', () {
@@ -385,10 +385,10 @@ void main() {
         final joiString = "abc@123".joi();
 
         // act
-        final result = joiString.alphanum().validate();
+        final result = joiString..alphanum();
 
         // assert
-        checkForFail(result, "Not a valid alphanumeric string");
+        checkForFail(result.validate(), "Not a valid alphanumeric string");
       });
 
       test('Invalid Alphanumeric String (Contains Spaces)', () {
@@ -396,10 +396,10 @@ void main() {
         final joiString = "abc 123".joi();
 
         // act
-        final result = joiString.alphanum().validate();
+        final result = joiString..alphanum();
 
         // assert
-        checkForFail(result, "Not a valid alphanumeric string");
+        checkForFail(result.validate(), "Not a valid alphanumeric string");
       });
 
       test('Invalid Alphanumeric String (Empty String)', () {
@@ -408,12 +408,11 @@ void main() {
 
         // act
         final result = joiString
-            .alphanum()
-            .required(message: "string is empty")
-            .validate();
+            ..alphanum()
+            ..required(message: "string is empty");
 
         // assert
-        checkForFail(result, "string is empty");
+        checkForFail(result.validate(), "string is empty");
       });
     });
 
@@ -423,10 +422,10 @@ void main() {
         final joiString = "https://example.com".joi();
 
         // act
-        final result = joiString.uri().validate();
+        final result = joiString..uri();
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test('Valid URI (With Query Parameters)', () {
@@ -434,10 +433,10 @@ void main() {
         final joiString = "https://example.com/path?param=value".joi();
 
         // act
-        final result = joiString.uri().validate();
+        final result = joiString..uri();
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test('Invalid URI (Malformed)', () {
@@ -445,10 +444,10 @@ void main() {
         final joiString = "not_a_uri".joi();
 
         // act
-        final result = joiString.uri().validate();
+        final result = joiString..uri();
 
         // assert
-        checkForFail(result, "Not a valid URI");
+        checkForFail(result.validate(), "Not a valid URI");
       });
 
       test('Invalid URI (Empty String)', () {
@@ -457,10 +456,10 @@ void main() {
 
         // act
         final result =
-            joiString.uri().required(message: "empty url").validate();
+            joiString..uri()..required(message: "empty url");
 
         // assert
-        checkForFail(result, "empty url");
+        checkForFail(result.validate(), "empty url");
       });
 
       test('Invalid URI (Missing Scheme)', () {
@@ -468,10 +467,10 @@ void main() {
         final joiString = "google.com".joi();
 
         // act
-        final result = joiString.uri().validate();
+        final result = joiString..uri();
 
         // assert
-        checkForFail(result, "Not a valid URI");
+        checkForFail(result.validate(), "Not a valid URI");
       });
     });
 
@@ -481,10 +480,10 @@ void main() {
         final joiString = "abcdefgh".joi();
 
         // act
-        final result = joiString.limit(8).validate();
+        final result = joiString..limit(8);
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test('Invalid String Length (Too Short)', () {
@@ -492,10 +491,10 @@ void main() {
         final joiString = "abc".joi();
 
         // act
-        final result = joiString.limit(8).validate();
+        final result = joiString..limit(8);
 
         // assert
-        checkForFail(result, "Must be exactly 8 characters long");
+        checkForFail(result.validate(), "Must be exactly 8 characters long");
       });
 
       test('Invalid String Length (Too Long)', () {
@@ -503,10 +502,10 @@ void main() {
         final joiString = "abcdefghi".joi();
 
         // act
-        final result = joiString.limit(8).validate();
+        final result = joiString..limit(8);
 
         // assert
-        checkForFail(result, "Must be exactly 8 characters long");
+        checkForFail(result.validate(), "Must be exactly 8 characters long");
       });
 
       test('Invalid String Length (Empty String)', () {
@@ -515,12 +514,11 @@ void main() {
 
         // act
         final result = joiString
-            .notEmpty(message: "Must be exactly 8 characters long")
-            .limit(8)
-            .validate();
+            ..notEmpty(message: "Must be exactly 8 characters long")
+            ..limit(8);
 
         // assert
-        checkForFail(result, "Must be exactly 8 characters long");
+        checkForFail(result.validate(), "Must be exactly 8 characters long");
       });
 
       test('Invalid String Length (Null)', () {
@@ -530,12 +528,11 @@ void main() {
 
         // act
         final result = joiString
-            .limit(8)
-            .required(message: 'value is required')
-            .validate();
+            ..limit(8)
+            ..required(message: 'value is required');
 
         // assert
-        checkForFail(result, "value is required");
+        checkForFail(result.validate(), "value is required");
       });
     });
 
@@ -547,10 +544,10 @@ void main() {
 
         // act
         final result =
-            joiString.valid(["apple", "banana", "orange"]).validate();
+            joiString..valid(["apple", "banana", "orange"]);
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test('Case-Sensitive Validation - Invalid Value', () {
@@ -559,10 +556,10 @@ void main() {
         final validValues = ["apple", "banana", "orange"];
 
         // act
-        final result = joiString.valid(validValues).validate();
+        final result = joiString..valid(validValues);
 
         // assert
-        checkForFail(result, "Not one of the valid values: $validValues");
+        checkForFail(result.validate(), "Not one of the valid values: $validValues");
       });
 
       // Case-Insensitive Validation
@@ -571,11 +568,11 @@ void main() {
         final joiString = "Apple".joi();
 
         // act
-        final result = joiString.valid(["apple", "banana", "orange"],
-            caseSensitive: false).validate();
+        final result = joiString..valid(["apple", "banana", "orange"],
+            caseSensitive: false);
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
       // Case-Insensitive Validation
       test('Case-Insensitive Validation - Valid Value', () {
@@ -583,11 +580,11 @@ void main() {
         final joiString = "apple".joi();
 
         // act
-        final result = joiString.valid(["apple", "banana", "orange"],
-            caseSensitive: false).validate();
+        final result = joiString..valid(["apple", "banana", "orange"],
+            caseSensitive: false);
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test('Case-Insensitive Validation - Invalid Value', () {
@@ -597,10 +594,10 @@ void main() {
 
         // act
         final result =
-            joiString.valid(validValues, caseSensitive: false).validate();
+            joiString..valid(validValues, caseSensitive: false);
 
         // assert
-        checkForFail(result, "Not one of the valid values: $validValues");
+        checkForFail(result.validate(), "Not one of the valid values: $validValues");
       });
     });
 
@@ -611,12 +608,12 @@ void main() {
         final joiString1 = "₹".joi();
 
         // act
-        final result = joiString.currencySymbol().validate();
-        final result1 = joiString1.currencySymbol().validate();
+        final result = joiString..currencySymbol();
+        final result1 = joiString1..currencySymbol();
 
         // assert
-        checkForPass(result);
-        checkForPass(result1);
+        checkForPass(result.validate());
+        checkForPass(result1.validate());
       });
 
       test('Invalid Currency Symbol', () {
@@ -624,10 +621,10 @@ void main() {
         final joiString = "Rs".joi();
 
         // act
-        final result = joiString.currencySymbol().validate();
+        final result = joiString..currencySymbol();
 
         // assert
-        checkForFail(result, "Not a currency symbol: Rs");
+        checkForFail(result.validate(), "Not a currency symbol: Rs");
       });
     });
 
@@ -638,12 +635,12 @@ void main() {
         final joiString1 = "inr".joi();
 
         // act
-        final result = joiString.currencyCode().validate();
-        final result1 = joiString1.currencyCode().validate();
+        final result = joiString..currencyCode();
+        final result1 = joiString1..currencyCode();
 
         // assert
-        checkForPass(result);
-        checkForPass(result1);
+        checkForPass(result.validate());
+        checkForPass(result1.validate());
       });
 
       test('Invalid Currency Code', () {
@@ -651,10 +648,10 @@ void main() {
         final joiString = "Rs".joi(); // valid INR
 
         // act
-        final result = joiString.currencySymbol().validate();
+        final result = joiString..currencySymbol();
 
         // assert
-        checkForFail(result, "Not a currency symbol: Rs");
+        checkForFail(result.validate(), "Not a currency symbol: Rs");
       });
     });
 
@@ -664,10 +661,10 @@ void main() {
         final joiString = "Hello@World".joi();
 
         // act
-        final result = joiString.specialChar().validate();
+        final result = joiString..specialChar();
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test('String without Special Character', () {
@@ -675,11 +672,11 @@ void main() {
         final joiString = "HelloWorld".joi();
 
         // act
-        final result = joiString.specialChar().validate();
+        final result = joiString..specialChar();
 
         // assert
         checkForFail(
-            result, "String must contain at least one special character");
+            result.validate(), "String must contain at least one special character");
       });
 
       test('String with Special Character (Whitespace)', () {
@@ -687,10 +684,10 @@ void main() {
         final joiString = "Hello @ World".joi();
 
         // act
-        final result = joiString.specialChar().validate();
+        final result = joiString..specialChar();
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test('String with only Special Character (Whitespace)', () {
@@ -699,14 +696,13 @@ void main() {
 
         // act
         final result = joiString
-            .required(
+            ..required(
                 message: "String must contain at least one special character")
-            .specialChar()
-            .validate();
+            ..specialChar();
 
         // assert
         checkForFail(
-            result, "String must contain at least one special character");
+            result.validate(), "String must contain at least one special character");
       });
 
       test('String with only Special Character (Whitespace)', () {
@@ -714,11 +710,11 @@ void main() {
         final joiString = "€".joi();
 
         // act
-        final result = joiString.specialChar().validate();
+        final result = joiString..specialChar();
 
         // assert
         checkForFail(
-          result,
+          result.validate(),
           "String must contain at least one special character",
         );
       });
@@ -730,10 +726,10 @@ void main() {
         final joiString = "4111111111111111".joi(); // Visa test number
 
         // act
-        final result = joiString.creditCard().validate();
+        final result = joiString..creditCard();
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test('Invalid Credit Card Number (Luhn Check Failed)', () {
@@ -742,10 +738,10 @@ void main() {
         final joiString = "4111111111111112".joi();
 
         // act
-        final result = joiString.creditCard().validate();
+        final result = joiString..creditCard();
 
         // assert
-        checkForFail(result, 'Not a valid credit card number');
+        checkForFail(result.validate(), 'Not a valid credit card number');
       });
 
       test('Invalid Credit Card Number (Non-Digit Characters)', () {
@@ -754,10 +750,10 @@ void main() {
         final joiString = "4111-1111-1111-1111".joi();
 
         // act
-        final result = joiString.creditCard().validate();
+        final result = joiString..creditCard();
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
     });
 
@@ -767,10 +763,10 @@ void main() {
         final joiString = "Hello123World".joi();
 
         // act
-        final result = joiString.num().validate();
+        final result = joiString..num();
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test('String without Number', () {
@@ -778,10 +774,10 @@ void main() {
         final joiString = "HelloWorld".joi();
 
         // act
-        final result = joiString.num().validate();
+        final result = joiString..num();
 
         // assert
-        checkForFail(result, 'String must contain at least one digit');
+        checkForFail(result.validate(), 'String must contain at least one digit');
       });
 
       test('String with Number (Whitespace)', () {
@@ -789,10 +785,10 @@ void main() {
         final joiString = "Hello 123 World".joi();
 
         // act
-        final result = joiString.num().validate();
+        final result = joiString..num();
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
     });
 
@@ -804,10 +800,10 @@ void main() {
           final joiString = "2023-11-10 12:34:56".joi();
 
           // act
-          final result = joiString.date('yyyy-MM-dd HH:mm:ss').validate();
+          final result = joiString..date('yyyy-MM-dd HH:mm:ss');
 
           // assert
-          checkForPass(result);
+          checkForPass(result.validate());
         },
       );
 
@@ -818,11 +814,11 @@ void main() {
           final joiString = "2023-11-10 NotATime".joi();
 
           // act
-          final result = joiString.date('yyyy-MM-dd HH:mm:ss').validate();
+          final result = joiString..date('yyyy-MM-dd HH:mm:ss');
 
           // assert
           checkForFail(
-              result, 'Trying to read HH from 2023-11-10 NotATime at 11');
+              result.validate(), 'Trying to read HH from 2023-11-10 NotATime at 11');
         },
       );
 
@@ -833,11 +829,11 @@ void main() {
           final joiString = "2023/11/10 12:34:56".joi();
 
           // act
-          final result = joiString.date('yyyy-MM-dd HH:mm:ss').validate();
+          final result = joiString..date('yyyy-MM-dd HH:mm:ss');
 
           // assert
           checkForFail(
-              result, 'Trying to read - from 2023/11/10 12:34:56 at 5');
+              result.validate(), 'Trying to read - from 2023/11/10 12:34:56 at 5');
         },
       );
 
@@ -848,11 +844,11 @@ void main() {
           final joiString = "NotADate NotATime".joi();
 
           // act
-          final result = joiString.date('yyyy-MM-dd HH:mm:ss').validate();
+          final result = joiString..date('yyyy-MM-dd HH:mm:ss');
 
           // assert
           checkForFail(
-              result, 'Trying to read yyyy from NotADate NotATime at 0');
+              result.validate(), 'Trying to read yyyy from NotADate NotATime at 0');
         },
       );
     });
@@ -862,8 +858,8 @@ void main() {
         'Valid ISO 3166-1 alpha-2 code should pass validation',
         () {
           final joiString = "US".joi();
-          final result = joiString.countryCode().validate();
-          checkForPass(result);
+          final result = joiString..countryCode();
+          checkForPass(result.validate());
         },
       );
 
@@ -871,8 +867,8 @@ void main() {
         'Invalid ISO 3166-1 alpha-2 code (length > 2) should fail validation',
         () {
           final joiString = "USA".joi();
-          final result = joiString.countryCode().validate();
-          checkForFail(result, 'Not a valid ISO 3166-1 alpha-2 code');
+          final result = joiString..countryCode();
+          checkForFail(result.validate(), 'Not a valid ISO 3166-1 alpha-2 code');
         },
       );
 
@@ -880,8 +876,8 @@ void main() {
         'Invalid ISO 3166-1 alpha-2 code (non-alphabetic characters) should fail validation',
         () {
           final joiString = "U1".joi();
-          final result = joiString.countryCode().validate();
-          checkForFail(result, "Not a valid ISO 3166-1 alpha-2 code");
+          final result = joiString..countryCode();
+          checkForFail(result.validate(), "Not a valid ISO 3166-1 alpha-2 code");
         },
       );
     });
@@ -892,10 +888,10 @@ void main() {
         final joiString = "StrongPassword123!".joi();
 
         // Act
-        final result = joiString.password(minLen: 8, maxLen: 20).validate();
+        final result = joiString..password(minLen: 8, maxLen: 20);
 
         // Assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test('Password less than minimum length should fail validation', () {
@@ -903,10 +899,10 @@ void main() {
         final joiString = "WeakPwd".joi();
 
         // Act
-        final result = joiString.password(minLen: 8, maxLen: 20).validate();
+        final result = joiString..password(minLen: 8, maxLen: 20);
 
         // Assert
-        checkForFail(result, "password is not strong enough");
+        checkForFail(result.validate(), "password is not strong enough");
       });
 
       test('Password exceeding maximum length should fail validation', () {
@@ -914,10 +910,10 @@ void main() {
         final joiString = "VeryLongPassword1234567890".joi();
 
         // Act
-        final result = joiString.password(minLen: 8, maxLen: 20).validate();
+        final result = joiString..password(minLen: 8, maxLen: 20);
 
         // Assert
-        checkForFail(result, "password is too long");
+        checkForFail(result.validate(), "password is too long");
       });
 
       test('Password missing uppercase letter should fail validation', () {
@@ -925,11 +921,11 @@ void main() {
         final joiString = "weak_password123!".joi();
 
         // Act
-        final result = joiString.password(minLen: 8, maxLen: 20).validate();
+        final result = joiString..password(minLen: 8, maxLen: 20);
 
         // Assert
         checkForFail(
-            result, "password should have at least one uppercase letter");
+            result.validate(), "password should have at least one uppercase letter");
       });
     });
 
@@ -939,10 +935,10 @@ void main() {
         final joiString = "example_image.jpg".joi();
 
         // Act
-        final result = joiString.image().validate();
+        final result = joiString..image();
 
         // Assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
 
       test('Invalid image filename extension should fail validation', () {
@@ -950,10 +946,10 @@ void main() {
         final joiString = "example_document.pdf".joi();
 
         // Act
-        final result = joiString.image().validate();
+        final result = joiString..image();
 
         // Assert
-        checkForFail(result, 'not valid image');
+        checkForFail(result.validate(), 'not valid image');
       });
 
       test('Whitespace-trimmed valid image filename should pass validation',
@@ -962,10 +958,10 @@ void main() {
         final joiString = "   example_image.jpg   ".joi();
 
         // Act
-        final result = joiString.image().validate();
+        final result = joiString..image();
 
         // Assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
     });
 
@@ -977,10 +973,10 @@ void main() {
           final joiString = 'prefix_someString'.joi();
 
           // act
-          final result = joiString.start('prefix').validate();
+          final result = joiString..start('prefix');
 
           // assert
-          checkForPass(result);
+          checkForPass(result.validate());
         },
       );
 
@@ -991,10 +987,10 @@ void main() {
           final joiString = '12345'.joi();
 
           // act
-          final result = joiString.start('123').validate();
+          final result = joiString..start('123');
 
           // assert
-          checkForPass(result);
+          checkForPass(result.validate());
         },
       );
 
@@ -1005,10 +1001,10 @@ void main() {
           final joiString = 'someString'.joi();
 
           // act
-          final result = joiString.start('prefix').validate();
+          final result = joiString..start('prefix');
 
           // assert
-          checkForFail(result, 'value does not start with prefix');
+          checkForFail(result.validate(), 'value does not start with prefix');
         },
       );
     });
@@ -1021,10 +1017,10 @@ void main() {
           final joiString = 'someString_suffix'.joi();
 
           // act
-          final result = joiString.end('suffix').validate();
+          final result = joiString..end('suffix');
 
           // assert
-          checkForPass(result);
+          checkForPass(result.validate());
         },
       );
 
@@ -1035,10 +1031,10 @@ void main() {
           final joiString = '12345'.joi();
 
           // act
-          final result = joiString.end('45').validate();
+          final result = joiString..end('45');
 
           // assert
-          checkForPass(result);
+          checkForPass(result.validate());
         },
       );
 
@@ -1049,10 +1045,10 @@ void main() {
           final joiString = 'someString'.joi();
 
           // act
-          final result = joiString.end('suffix').validate();
+          final result = joiString..end('suffix');
 
           // assert
-          checkForFail(result, 'value does not end with suffix');
+          checkForFail(result.validate(), 'value does not end with suffix');
         },
       );
     });
@@ -1062,9 +1058,9 @@ void main() {
         final joiString = "string".joi();
 
         final result =
-            joiString.invalid(["int", "double", "float", "bigint"]).validate();
+            joiString..invalid(["int", "double", "float", "bigint"]);
 
-        checkForPass(result);
+        checkForPass(result.validate());
       });
       test(
           "when given value(lowercase) is from given list(uppercase), case insensitive validation must fail",
@@ -1072,10 +1068,10 @@ void main() {
         var s = "string";
         final joiString = s.joi();
 
-        final result = joiString.invalid(["int", "double", "float", "String"],
-            caseSensitive: false).validate();
+        final result = joiString..invalid(["int", "double", "float", "String"],
+            caseSensitive: false);
 
-        checkForFail(result, "$s is not valid value");
+        checkForFail(result.validate(), "$s is not valid value");
       });
       test(
           "when given value(lowercase) is from given list(uppercase), case sensitive validation must pass",
@@ -1083,12 +1079,12 @@ void main() {
         var s = "string";
         final joiString = s.joi();
 
-        final result = joiString.invalid(
+        final result = joiString..invalid(
           ["int", "double", "float", "String"],
           caseSensitive: true,
-        ).validate();
+        );
 
-        checkForPass(result);
+        checkForPass(result.validate());
       });
     });
   });

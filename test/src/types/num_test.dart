@@ -13,10 +13,10 @@ void main() {
           final joiNumber = 42.joi();
 
           // act
-          final result = joiNumber.int().validate();
+          final result = joiNumber..int();
 
           // assert
-          checkForPass(result);
+          checkForPass(result.validate());
         },
       );
 
@@ -27,10 +27,10 @@ void main() {
           final joiNumber = (-15).joi();
 
           // act
-          final result = joiNumber.int().validate();
+          final result = joiNumber..int();
 
           // assert
-          checkForPass(result);
+          checkForPass(result.validate());
         },
       );
 
@@ -41,10 +41,10 @@ void main() {
           final joiNumber = 123.joi();
 
           // act
-          final result = joiNumber.int().validate();
+          final result = joiNumber..int();
 
           // assert
-          checkForPass(result);
+          checkForPass(result.validate());
         },
       );
 
@@ -55,10 +55,10 @@ void main() {
           final joiNumber = 42.5.joi();
 
           // act
-          final result = joiNumber.int().validate();
+          final result = joiNumber..int();
 
           // assert
-          checkForFail(result, "Must be a valid integer");
+          checkForFail(result.validate(), "Must be a valid integer");
         },
       );
 
@@ -70,10 +70,10 @@ void main() {
 
           // act
           final result =
-              joiNumber.int().required(message: 'value is required').validate();
+              joiNumber..int()..required(message: 'value is required');
 
           // assert
-          checkForFail(result, 'value is required');
+          checkForFail(result.validate(), 'value is required');
         },
       );
     });
@@ -86,10 +86,10 @@ void main() {
           final joiNumber = 42.joi();
 
           // act
-          final result = joiNumber.positive().validate();
+          final result = joiNumber..positive();
 
           // assert
-          checkForPass(result);
+          checkForPass(result.validate());
         },
       );
 
@@ -100,10 +100,10 @@ void main() {
           final joiNumber = 123.45.joi();
 
           // act
-          final result = joiNumber.positive().validate();
+          final result = joiNumber..positive();
 
           // assert
-          checkForPass(result);
+          checkForPass(result.validate());
         },
       );
 
@@ -114,10 +114,10 @@ void main() {
           final joiNumber = (-15).joi();
 
           // act
-          final result = joiNumber.positive().validate();
+          final result = joiNumber..positive();
 
           // assert
-          checkForFail(result, 'Must be a positive integer');
+          checkForFail(result.validate(), 'Must be a positive integer');
         },
       );
 
@@ -129,12 +129,12 @@ void main() {
 
           // act
           final result = joiNumber
-              .positive()
-              .required(message: 'value is required')
-              .validate();
+              ..positive()
+              ..required(message: 'value is required')
+              ;
 
           // assert
-          checkForFail(result, 'value is required');
+          checkForFail(result.validate(), 'value is required');
         },
       );
     });
@@ -147,10 +147,10 @@ void main() {
           final joiNumber = (-42).joi();
 
           // act
-          final result = joiNumber.negative().validate();
+          final result = joiNumber..negative();
 
           // assert
-          checkForPass(result);
+          checkForPass(result.validate());
         },
       );
 
@@ -161,10 +161,10 @@ void main() {
           final joiNumber = (-123.45).joi();
 
           // act
-          final result = joiNumber.negative().validate();
+          final result = joiNumber..negative();
 
           // assert
-          checkForPass(result);
+          checkForPass(result.validate());
         },
       );
 
@@ -175,10 +175,10 @@ void main() {
           final joiNumber = 15.joi();
 
           // act
-          final result = joiNumber.negative().validate();
+          final result = joiNumber..negative();
 
           // assert
-          checkForFail(result, 'Must be a negative integer');
+          checkForFail(result.validate(), 'Must be a negative integer');
         },
       );
     });
@@ -191,10 +191,10 @@ void main() {
           final joiNumber = 42.joi();
 
           // act
-          final result = joiNumber.decimal().validate();
+          final result = joiNumber..decimal();
 
           // assert
-          checkForPass(result);
+          checkForPass(result.validate());
         },
       );
 
@@ -205,10 +205,10 @@ void main() {
           final joiNumber = 123.45.joi();
 
           // act
-          final result = joiNumber.decimal().validate();
+          final result = joiNumber..decimal();
 
           // assert
-          checkForPass(result);
+          checkForPass(result.validate());
         },
       );
 
@@ -219,10 +219,10 @@ void main() {
           final joiNumber = (-123.45).joi();
 
           // act
-          final result = joiNumber.decimal().validate();
+          final result = joiNumber..decimal();
 
           // assert
-          checkForPass(result);
+          checkForPass(result.validate());
         },
       );
     });
@@ -233,30 +233,30 @@ void main() {
         final joiNumber = 42.5.joi();
 
         // act
-        final result = joiNumber.double().validate();
+        final result = joiNumber..double();
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
       test("negative double number", () {
         // arrange
         final joiNumber = (-42.5).joi();
 
         // act
-        final result = joiNumber.double().validate();
+        final result = joiNumber..double();
 
         // assert
-        checkForPass(result);
+        checkForPass(result.validate());
       });
       test("invalid double number", () {
         // arrange
         final joiNumber = 42.joi();
 
         // act
-        final result = joiNumber.double().validate();
+        final result = joiNumber..double();
 
         // assert
-        checkForFail(result, "Must be a valid double number");
+        checkForFail(result.validate(), "Must be a valid double number");
       });
     });
 
@@ -264,9 +264,9 @@ void main() {
       test("given valid int number, then validation must pass", () {
         final joiNumber = 42.joi();
 
-        final result = joiNumber.divisible(2).validate();
+        final result = joiNumber..divisible(2);
 
-        checkForPass(result);
+        checkForPass(result.validate());
       });
       test(
           "given valid int number but not divisible number, then validation must fail",
@@ -274,9 +274,9 @@ void main() {
         final joiNumber = 42.joi();
 
         var by = 4;
-        final result = joiNumber.divisible(by).validate();
+        final result = joiNumber..divisible(by);
 
-        checkForFail(result, "value is not divisible by $by");
+        checkForFail(result.validate(), "value is not divisible by $by");
       });
       test(
           "given double number but divisible int number, then validation must pass",
@@ -284,9 +284,9 @@ void main() {
         final joiNumber = 42.0.joi();
 
         var by = 3;
-        final result = joiNumber.divisible(by).validate();
+        final result = joiNumber..divisible(by);
 
-        checkForPass(result);
+        checkForPass(result.validate());
       });
       test(
           "given double number but not divisible double number, then validation must pass",
@@ -294,9 +294,9 @@ void main() {
         final joiNumber = 42.1.joi();
 
         var by = 3.0;
-        final result = joiNumber.divisible(by).validate();
+        final result = joiNumber..divisible(by);
 
-        checkForFail(result, "value is not divisible by $by");
+        checkForFail(result.validate(), "value is not divisible by $by");
       });
     });
 
@@ -307,9 +307,9 @@ void main() {
         final joiNumber = 42.1.joi();
         final min = 40;
 
-        final result = joiNumber.min(min).validate();
+        final result = joiNumber..min(min);
 
-        checkForPass(result);
+        checkForPass(result.validate());
       });
       test(
           "given number in less that specified min number, validation should fail",
@@ -317,17 +317,17 @@ void main() {
         final joiNumber = 42.1.joi();
         final min = 50;
 
-        final result = joiNumber.min(min).validate();
+        final result = joiNumber..min(min);
 
-        checkForFail(result, "value must be less than $min");
+        checkForFail(result.validate(), "value must be less than $min");
       });
       test("given number is equal to min number, validation should pass", () {
         final joiNumber = 42.0.joi();
         final min = 42;
 
-        final result = joiNumber.min(min).validate();
+        final result = joiNumber..min(min);
 
-        checkForPass(result);
+        checkForPass(result.validate());
       });
     });
 
@@ -338,9 +338,9 @@ void main() {
         final joiNumber = 42.1.joi();
         final max = 50;
 
-        final result = joiNumber.max(max).validate();
+        final result = joiNumber..max(max);
 
-        checkForPass(result);
+        checkForPass(result.validate());
       });
       test(
           "given number in greater that specified max number, validation should fail",
@@ -348,17 +348,17 @@ void main() {
         final joiNumber = 42.1.joi();
         final max = 40;
 
-        final result = joiNumber.max(max).validate();
+        final result = joiNumber..max(max);
 
-        checkForFail(result, "value must be greater than $max");
+        checkForFail(result.validate(), "value must be greater than $max");
       });
       test("given number is equal to max number, validation should pass", () {
         final joiNumber = 42.0.joi();
         final max = 42;
 
-        final result = joiNumber.max(max).validate();
+        final result = joiNumber..max(max);
 
-        checkForPass(result);
+        checkForPass(result.validate());
       });
     });
   });

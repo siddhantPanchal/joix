@@ -21,7 +21,7 @@ final class JoiStringX extends JoiX<String>
         _compressor = compressor,
         super(compressor);
 
-  JoiStringX notEmpty({String? message}) {
+  void notEmpty({String? message}) {
     _compressor.registerValidator(
       JoiValidator(
         identifier: JoiIdentifier.notEmpty,
@@ -39,10 +39,10 @@ final class JoiStringX extends JoiX<String>
       ),
     );
 
-    return this;
+    
   }
 
-  JoiStringX min(int min, {String? message, bool override = true}) {
+  void min(int min, {String? message, bool override = true}) {
     _compressor.registerValidator(
       JoiValidator(
         identifier: JoiIdentifier.min,
@@ -55,10 +55,10 @@ final class JoiStringX extends JoiX<String>
         },
       ),
     );
-    return this;
+    
   }
 
-  JoiStringX max(int max, {String? message, bool override = true}) {
+  void max(int max, {String? message, bool override = true}) {
     _compressor.registerValidator(
       JoiValidator(
         identifier: JoiIdentifier.max,
@@ -72,7 +72,7 @@ final class JoiStringX extends JoiX<String>
         },
       ),
     );
-    return this;
+    
   }
 
   void _match(RegExp regex, String value, String? message) {
@@ -81,7 +81,7 @@ final class JoiStringX extends JoiX<String>
     }
   }
 
-  JoiStringX match(RegExp regex, {String? message}) {
+  void match(RegExp regex, {String? message}) {
     _compressor.registerValidator(
       JoiValidator(
         identifier: JoiIdentifier.match,
@@ -90,10 +90,10 @@ final class JoiStringX extends JoiX<String>
         },
       ),
     );
-    return this;
+    
   }
 
-  JoiStringX email({String? message}) {
+  void email({String? message}) {
     _compressor.registerValidator(
       JoiValidator(
         identifier: JoiIdentifier.email,
@@ -103,11 +103,11 @@ final class JoiStringX extends JoiX<String>
         },
       ),
     );
-    return this;
+    
   }
 
   @override
-  JoiStringX required({String? message}) {
+  void required({String? message}) {
     _compressor.registerValidator(JoiValidator(
       options: const ValidatorOptions(priority: JoiValidatorPriority.medium),
       identifier: JoiIdentifier.required,
@@ -127,11 +127,11 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    return this;
+    
   }
 
   @override
-  JoiStringX defaultValue(String value) {
+  void defaultValue(String value) {
     _compressor.registerValidator(
       JoiValidator(
         options: const ValidatorOptions(priority: JoiValidatorPriority.high),
@@ -139,10 +139,10 @@ final class JoiStringX extends JoiX<String>
         nullValidator: () => value,
       ),
     );
-    return this;
+    
   }
 
-  JoiStringX base64({bool padding = true, String? message}) {
+  void base64({bool padding = true, String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.base64,
       validator: (value) {
@@ -156,10 +156,10 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    return this;
+    
   }
 
-  JoiStringX alphanum({String? message}) {
+  void alphanum({String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.alphanum,
       validator: (value) {
@@ -170,10 +170,10 @@ final class JoiStringX extends JoiX<String>
         );
       },
     ));
-    return this;
+    
   }
 
-  JoiStringX uri({String? message}) {
+  void uri({String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.uri,
       validator: (value) {
@@ -187,11 +187,11 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    return this;
+    
   }
 
   @override
-  JoiStringX limit(int length, {String? message}) {
+  void limit(int length, {String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.limit,
       validator: (value) {
@@ -202,10 +202,10 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    return this;
+    
   }
 
-  JoiStringX valid(List<String> validValues,
+  void valid(List<String> validValues,
       {String? message, bool caseSensitive = true}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.valid,
@@ -221,10 +221,10 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    return this;
+    
   }
 
-  JoiStringX currencySymbol({String? message}) {
+  void currencySymbol({String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.currencySymbol,
       beforeValidation: (value) {
@@ -243,10 +243,10 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    return this;
+    
   }
 
-  JoiStringX currencyCode({String? message}) {
+  void currencyCode({String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.currencyCode,
       beforeValidation: (value) => value.trim(),
@@ -263,10 +263,10 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    return this;
+    
   }
 
-  JoiStringX specialChar({String? message}) {
+  void specialChar({String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.specialChar,
       validator: (value) {
@@ -277,10 +277,10 @@ final class JoiStringX extends JoiX<String>
         );
       },
     ));
-    return this;
+    
   }
 
-  JoiStringX creditCard({String? message}) {
+  void creditCard({String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.creditCard,
       validator: (value) {
@@ -289,7 +289,7 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    return this;
+    
   }
 
   /// uses Luhn algorithm (mod-10)
@@ -316,7 +316,7 @@ final class JoiStringX extends JoiX<String>
     return sum % 10 == 0;
   }
 
-  JoiStringX num({String? message}) {
+  void num({String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.num,
       validator: (value) {
@@ -327,10 +327,10 @@ final class JoiStringX extends JoiX<String>
         );
       },
     ));
-    return this;
+    
   }
 
-  JoiStringX date(String format, {String? message}) {
+  void date(String format, {String? message}) {
     _compressor.registerValidator(
       JoiValidator(
         identifier: JoiIdentifier.date,
@@ -343,10 +343,10 @@ final class JoiStringX extends JoiX<String>
         },
       ),
     );
-    return this;
+    
   }
 
-  JoiStringX countryCode({String? message}) {
+  void countryCode({String? message}) {
     _compressor.registerValidator(
       JoiValidator(
         identifier: JoiIdentifier.countryCode,
@@ -364,15 +364,15 @@ final class JoiStringX extends JoiX<String>
         },
       ),
     );
-    return this;
+    
   }
 
-  JoiStringX custom(JoiValidator<String> validator) {
+  void custom(JoiValidator<String> validator) {
     _compressor.registerValidator(validator);
-    return this;
+    
   }
 
-  JoiStringX password({int minLen = 8, int? maxLen}) {
+  void password({int minLen = 8, int? maxLen}) {
     min(minLen, message: "password is not strong enough", override: false);
     if (maxLen != null) {
       max(maxLen, message: "password is too long", override: false);
@@ -400,10 +400,10 @@ final class JoiStringX extends JoiX<String>
         );
       },
     ));
-    return this;
+    
   }
 
-  JoiStringX image({String? message}) {
+  void image({String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: "image",
       beforeValidation: (value) => value.trim(),
@@ -416,10 +416,10 @@ final class JoiStringX extends JoiX<String>
         );
       },
     ));
-    return this;
+    
   }
 
-  JoiStringX start(String str, {String? message}) {
+  void start(String str, {String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.start,
       beforeValidation: (value) => value.trim(),
@@ -429,10 +429,10 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    return this;
+    
   }
 
-  JoiStringX end(String str, {String? message}) {
+  void end(String str, {String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.end,
       beforeValidation: (value) => value.trim(),
@@ -442,10 +442,10 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    return this;
+    
   }
 
-  JoiStringX invalid(List<String> list,
+  void invalid(List<String> list,
       {String? message, bool caseSensitive = true}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.invalid,
@@ -460,7 +460,7 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    return this;
+    
   }
 
   @override

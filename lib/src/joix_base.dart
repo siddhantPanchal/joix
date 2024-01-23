@@ -12,7 +12,7 @@ abstract class JoiX<T> implements Defaultable<T> {
 
   JoiX(this._compressor);
 
-  JoiX<T> required({String? message}) {
+  void required({String? message}) {
     _compressor.registerValidator(JoiValidator(
       options: const ValidatorOptions(priority: JoiValidatorPriority.medium),
       identifier: JoiIdentifier.required,
@@ -23,11 +23,11 @@ abstract class JoiX<T> implements Defaultable<T> {
         );
       },
     ));
-    return this;
+    
   }
 
   @override
-  JoiX<T> defaultValue(T value) {
+  void defaultValue(T value) {
     _compressor.registerValidator(
       JoiValidator(
         options: const ValidatorOptions(priority: JoiValidatorPriority.high),
@@ -35,7 +35,7 @@ abstract class JoiX<T> implements Defaultable<T> {
         nullValidator: () => value,
       ),
     );
-    return this;
+    
   }
   // JoiX valid<S>(List<S> validValues,
   //     {String? message, bool caseSensitive = true});
