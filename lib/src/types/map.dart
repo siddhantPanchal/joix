@@ -1,41 +1,62 @@
-import 'package:joix/joix.dart';
+part of "../joix_base.dart";
 
-import '../validator/validator_compressor.dart';
+class JoiMapX with JoiX<Map<String, dynamic>> {
+  late final Map<String, JoiX> _compressorMap;
 
-class JoiMapX extends JoiX<Map<Object, Object>> {
-  final Map<Object, Object>? _value;
-  final Map<Object, JoiX<Object>> _compressorMap;
-
-  JoiMapX(Map<Object, JoiX<Object> Function(Object? value)> compressor,
-      {required Map<Object, Object>? value})
-      : _value = value,
-        _compressorMap = compressor.map(
-          (key, callback) => MapEntry(key, callback(value?[key])),
-        ),
-        super(ValidatorCompressor<Map<Object, Object>>());
+  JoiMapX(Map<String, JoiX> validators,
+      {required Map<String, dynamic>? value}) {
+    _value = value;
+    // don't need this compressor but for future reference
+    _compressor = ValidatorCompressor<Map<String, dynamic>>();
+    _compressorMap = validators.map(
+      (key, value) => MapEntry(
+        key,
+        value
+          ..name = key
+          .._value = _value?[key],
+      ),
+    );
+  }
 
   @override
-  JoiResult<Map<Object, Object>> validate() {
+  JoiResult<Map<String, dynamic>> validate({Map<String, dynamic>? value}) {
+    if (value != null) _value = value;
     if (_value == null) {
       return JoiResult(
         isSuccess: false,
         error: JoiTypeException("given map is null"),
-        value: value,
+        value: _value,
       );
     }
+    _createNewCompressor();
     for (final MapEntry(value: com) in _compressorMap.entries) {
       final result = com.validate();
       if (!result.isSuccess) {
         return JoiResult(
           isSuccess: result.isSuccess,
           error: result.error,
-          value: value,
+          value: _value,
         );
       }
     }
-    return JoiResult(isSuccess: true, error: null, value: value);
+    return JoiResult(isSuccess: true, error: null, value: _value);
   }
 
-  @override
-  Map<Object, Object>? get value => _value;
+  void _createNewCompressor() {
+    final compressorMap = {..._compressorMap};
+    compressorMap.addAll(compressorMap.map(
+      (key, value) {
+        var mapEntry = MapEntry(
+          key,
+          value
+            ..name = key
+            .._value = _value?[key],
+        );
+
+        return mapEntry;
+      },
+    ));
+    _compressorMap.clear();
+    _compressorMap.addAll(compressorMap);
+  }
 }

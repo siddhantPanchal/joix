@@ -1,20 +1,10 @@
-import 'package:joix/joix.dart';
+part of "../joix_base.dart";
 
-import '../validator/validator.dart';
-import '../validator/validator_compressor.dart';
-
-class JoiNumberX extends JoiX<num> {
-  final num? _value;
-  final ValidatorCompressor<num> _compressor;
-
-  JoiNumberX(ValidatorCompressor<num> compressor,
-      {required num? value})
-      : _value = value,
-        _compressor = compressor,
-        super(compressor);
-
-  @override
-  num? get value => _value;
+class JoiNumberX with JoiX<num> {
+  JoiNumberX({required num? value}) {
+    _value = value;
+    _compressor = ValidatorCompressor<num>();
+  }
 
   void int({String? message}) {
     _compressor.registerValidator(JoiValidator(
@@ -115,5 +105,4 @@ class JoiNumberX extends JoiX<num> {
       throw JoiTypeException(errorMessage);
     }
   }
-
 }
