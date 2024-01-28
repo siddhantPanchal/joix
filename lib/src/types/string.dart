@@ -1,25 +1,12 @@
-import 'package:intl/intl.dart';
-import 'package:sealed_currencies/sealed_currencies.dart';
+part of "../joix_base.dart";
 
-import '../error.dart';
-import '../identifier.dart';
-import '../joix_base.dart';
-import '../validator/priority.dart';
-import '../validator/validator.dart';
-import '../validator/validator_compressor.dart';
-import '../validator/validator_options.dart';
-import 'interfaces/defaultable.dart';
-import 'interfaces/measurable.dart';
-
-final class JoiStringX extends JoiX<String>
+final class JoiStringX
+    with JoiX<String>
     implements Defaultable<String>, Limitable<String> {
-  final String? _value;
-  final ValidatorCompressor<String> _compressor;
-
-  JoiStringX(ValidatorCompressor<String> compressor, {required String? value})
-      : _value = value,
-        _compressor = compressor,
-        super(compressor);
+  JoiStringX({required String? value}) {
+    _value = value;
+    _compressor = ValidatorCompressor<String>();
+  }
 
   void notEmpty({String? message}) {
     _compressor.registerValidator(
@@ -38,8 +25,6 @@ final class JoiStringX extends JoiX<String>
         },
       ),
     );
-
-    
   }
 
   void min(int min, {String? message, bool override = true}) {
@@ -55,7 +40,6 @@ final class JoiStringX extends JoiX<String>
         },
       ),
     );
-    
   }
 
   void max(int max, {String? message, bool override = true}) {
@@ -72,7 +56,6 @@ final class JoiStringX extends JoiX<String>
         },
       ),
     );
-    
   }
 
   void _match(RegExp regex, String value, String? message) {
@@ -90,7 +73,6 @@ final class JoiStringX extends JoiX<String>
         },
       ),
     );
-    
   }
 
   void email({String? message}) {
@@ -103,7 +85,6 @@ final class JoiStringX extends JoiX<String>
         },
       ),
     );
-    
   }
 
   @override
@@ -127,7 +108,6 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    
   }
 
   @override
@@ -139,7 +119,6 @@ final class JoiStringX extends JoiX<String>
         nullValidator: () => value,
       ),
     );
-    
   }
 
   void base64({bool padding = true, String? message}) {
@@ -156,7 +135,6 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    
   }
 
   void alphanum({String? message}) {
@@ -170,7 +148,6 @@ final class JoiStringX extends JoiX<String>
         );
       },
     ));
-    
   }
 
   void uri({String? message}) {
@@ -187,7 +164,6 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    
   }
 
   @override
@@ -202,7 +178,6 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    
   }
 
   void valid(List<String> validValues,
@@ -221,7 +196,6 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    
   }
 
   void currencySymbol({String? message}) {
@@ -243,7 +217,6 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    
   }
 
   void currencyCode({String? message}) {
@@ -263,7 +236,6 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    
   }
 
   void specialChar({String? message}) {
@@ -277,7 +249,6 @@ final class JoiStringX extends JoiX<String>
         );
       },
     ));
-    
   }
 
   void creditCard({String? message}) {
@@ -289,7 +260,6 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    
   }
 
   /// uses Luhn algorithm (mod-10)
@@ -327,7 +297,6 @@ final class JoiStringX extends JoiX<String>
         );
       },
     ));
-    
   }
 
   void date(String format, {String? message}) {
@@ -343,7 +312,6 @@ final class JoiStringX extends JoiX<String>
         },
       ),
     );
-    
   }
 
   void countryCode({String? message}) {
@@ -364,12 +332,10 @@ final class JoiStringX extends JoiX<String>
         },
       ),
     );
-    
   }
 
   void custom(JoiValidator<String> validator) {
     _compressor.registerValidator(validator);
-    
   }
 
   void password({int minLen = 8, int? maxLen}) {
@@ -400,7 +366,6 @@ final class JoiStringX extends JoiX<String>
         );
       },
     ));
-    
   }
 
   void image({String? message}) {
@@ -416,7 +381,6 @@ final class JoiStringX extends JoiX<String>
         );
       },
     ));
-    
   }
 
   void start(String str, {String? message}) {
@@ -429,7 +393,6 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    
   }
 
   void end(String str, {String? message}) {
@@ -442,7 +405,6 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    
   }
 
   void invalid(List<String> list,
@@ -460,9 +422,5 @@ final class JoiStringX extends JoiX<String>
         }
       },
     ));
-    
   }
-
-  @override
-  String? get value => _value;
 }
