@@ -29,8 +29,20 @@ void mapExample() {
   print(result);
 }
 
+void refExample() {
+  final schema = joi.object({
+    "confirm_password": JoiX.ref("password"),
+    "password": JoiX.string()..required(),
+  });
+
+  var map = {"password": "abc", "confirm_password": "abcd"};
+  var result = schema.validate(value: map);
+  print(result);
+}
+
 void main() {
-  emailExample();
-  ageExample();
-  mapExample();
+  // emailExample();
+  // ageExample();
+  // mapExample();
+  refExample();
 }

@@ -1,8 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:intl/intl.dart';
+import 'package:joix/src/currencies.dart';
 import 'package:joix/src/error.dart';
 import 'package:joix/src/identifier.dart';
 import 'package:joix/src/types/interfaces/interfaces.dart';
-import 'package:sealed_currencies/sealed_currencies.dart';
 
 import 'validator/priority.dart';
 import 'validator/validator.dart';
@@ -11,7 +12,11 @@ import 'validator/validator_options.dart';
 
 part "types/map.dart";
 part "types/num.dart";
+part "types/ref.dart";
 part "types/string.dart";
+
+// ignore: camel_case_types
+typedef joi = JoiX;
 
 mixin JoiX<T> implements Defaultable<T> {
   late final ValidatorCompressor<T> _compressor;
@@ -30,6 +35,10 @@ mixin JoiX<T> implements Defaultable<T> {
 
   static JoiMapX object(Map<String, JoiX> schema) {
     return JoiMapX(schema, value: null);
+  }
+
+  static JoiX ref(String key) {
+    return JoiRefX(key: key);
   }
 
   void required({String? message}) {
@@ -96,5 +105,17 @@ class JoiResult<T> {
       "result": _isSuccess,
       "error": _error?.message,
     }.toString();
+  }
+
+  JoiResult<T> copyWith({
+    bool? isSuccess,
+    JoiTypeException? error,
+    T? value,
+  }) {
+    return JoiResult<T>(
+      isSuccess: isSuccess ?? this._isSuccess,
+      error: error ?? this._error,
+      value: value ?? this._value,
+    );
   }
 }

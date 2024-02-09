@@ -29,8 +29,14 @@ class JoiMapX with JoiX<Map<String, dynamic>> {
       );
     }
     _createNewCompressor();
-    for (final MapEntry(value: com) in _compressorMap.entries) {
-      final result = com.validate();
+    for (final MapEntry(value: joi) in _compressorMap.entries) {
+      JoiResult<dynamic> result;
+      if (joi is JoiRefX) {
+        var ref = _compressorMap[joi.key];
+        result = _processJoiRef(joi, ref);
+      } else {
+        result = joi.validate();
+      }
       if (!result.isSuccess) {
         return JoiResult(
           isSuccess: result.isSuccess,
@@ -40,6 +46,33 @@ class JoiMapX with JoiX<Map<String, dynamic>> {
       }
     }
     return JoiResult(isSuccess: true, error: null, value: _value);
+  }
+
+  JoiResult _processJoiRef(JoiX<dynamic> current, JoiX<dynamic>? ref) {
+    if (ref == null) throw Exception("");
+    final oldValue = ref.value;
+    final value = current.value;
+
+    final result = ref.validate(value: value);
+
+    if (!result.isSuccess) {
+      return JoiResult(
+        isSuccess: result.isSuccess,
+        error: result.error,
+        value: _value,
+      );
+    }
+
+    if (oldValue != value) {
+      return JoiResult(
+        isSuccess: false,
+        error: JoiTypeException(
+            "${current.name} value is not same as ${ref.name}"),
+        value: _value,
+      );
+    }
+
+    return result;
   }
 
   void _createNewCompressor() {
