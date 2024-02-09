@@ -198,35 +198,14 @@ final class JoiStringX
     ));
   }
 
-  void currencySymbol({String? message}) {
-    _compressor.registerValidator(JoiValidator(
-      identifier: JoiIdentifier.currencySymbol,
-      beforeValidation: (value) {
-        return value.trim();
-      },
-      validator: (value) {
-        bool found = false;
-        for (var currency in FiatCurrency.list) {
-          if (currency.symbol == value) {
-            found = true;
-            break;
-          }
-        }
-        if (!found) {
-          throw JoiTypeException(message ?? 'Not a currency symbol: $value');
-        }
-      },
-    ));
-  }
-
   void currencyCode({String? message}) {
     _compressor.registerValidator(JoiValidator(
       identifier: JoiIdentifier.currencyCode,
       beforeValidation: (value) => value.trim(),
       validator: (value) {
         bool found = false;
-        for (var currency in FiatCurrency.list) {
-          if (currency.code.toLowerCase() == value.toLowerCase()) {
+        for (var currency in currencyCodes) {
+          if (currency.toLowerCase() == value.toLowerCase()) {
             found = true;
             break;
           }
