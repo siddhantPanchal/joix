@@ -40,9 +40,48 @@ void refExample() {
   print(result);
 }
 
+void pipelineExample() {
+  final schema = JoiX.object({
+    "email": JoiX.string()
+      ..email()
+      ..required(),
+    "age": JoiX.num()..required(),
+    "pan": joi.string()
+      ..alphanum()
+      ..pipeline((value) {
+        var joiStringX = value.joi()..limit(10);
+        print(joiStringX.validate());
+        return joiStringX;
+      })
+      ..pipeline((value) {
+        var joiStringX = value.substring(0, 5).joi()
+          ..alphabets()
+          ..uppercase();
+        print(joiStringX.validate());
+        return joiStringX;
+      })
+      ..pipeline((value) {
+        return value.substring(5, 9).joi()..num();
+      })
+      ..pipeline(
+        (value) {
+          return value[value.length - 1].joi()
+            ..alphabets()
+            ..uppercase();
+        },
+      )
+      ..required(),
+  });
+  final result = schema.validate(
+    value: {"email": "abc@example.com", 'age': 20, "pan": "23ZAABN18J"},
+  );
+  print(result);
+}
+
 void main() {
   // emailExample();
   // ageExample();
   // mapExample();
-  refExample();
+  // refExample();
+  pipelineExample();
 }
