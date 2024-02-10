@@ -43,4 +43,9 @@ final class JoiIdentifier {
   static String get start => "start";
   static String get end => "end";
   static String get invalid => "invalid";
+  static String get uppercase => "uppercase";
+  static String get lowercase => "lowercase";
+  static String get titlized => "titlized";
+  static String get alphabets => "alphabets";
+  static String get whitespace => "whitespace";
 }
