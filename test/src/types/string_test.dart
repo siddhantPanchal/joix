@@ -540,6 +540,17 @@ void main() {
         // assert
         checkForFail(result.validate(), "value is required");
       });
+      test('Invalid String Length (Null)', () {
+        // arrange
+        final map = <String, dynamic>{};
+        final joiString = (map[""] as String?).joi();
+
+        // act
+        final result = joiString..limit(8);
+
+        // assert
+        checkForPass(result.validate());
+      });
     });
 
     group('JoiStringX validValues validation', () {
