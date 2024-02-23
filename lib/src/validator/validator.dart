@@ -43,7 +43,7 @@ class JoiValidator<T> {
       newValue = _nullValidator?.call() ?? value;
     } else {
       newValue = _beforeValidationTransformer?.call(value) ?? value;
-      _validator?.call(newValue);
+     _validator?.call(newValue as T);
       newValue = _afterValidationTransformer?.call(value) ?? value;
     }
     return newValue;

@@ -270,7 +270,7 @@ final class JoiStringX
       identifier: JoiIdentifier.num,
       validator: (value) {
         _match(
-          RegExp(r'\d'),
+          RegExp(r'^\d+$'),
           value,
           message ?? 'String must contain at least one digit',
         );
@@ -399,6 +399,69 @@ final class JoiStringX
         if (list.contains(value)) {
           throw JoiTypeException("$value is not valid value");
         }
+      },
+    ));
+  }
+
+  void uppercase({String? message}) {
+    _compressor.registerValidator(JoiValidator(
+      identifier: JoiIdentifier.uppercase,
+      validator: (value) {
+        if (value != value.toUpperCase()) {
+          throw JoiTypeException(
+              message ?? '${name ?? ""} not a valid uppercase string');
+        }
+      },
+    ));
+  }
+
+  void lowercase({String? message}) {
+    _compressor.registerValidator(JoiValidator(
+      identifier: JoiIdentifier.lowercase,
+      validator: (value) {
+        if (value != value.toLowerCase()) {
+          throw JoiTypeException(
+              message ?? '${name ?? ""} not a valid lowercase string');
+        }
+      },
+    ));
+  }
+
+  void titlized({String? message}) {
+    _compressor.registerValidator(JoiValidator(
+      identifier: JoiIdentifier.titlized,
+      validator: (value) {
+        _match(
+          RegExp(r'^[A-Z]{1}[a-z]*$'),
+          value,
+          message ?? '${name ?? ""} not a valid titlized string',
+        );
+      },
+    ));
+  }
+
+  void alphabets({String? message}) {
+    _compressor.registerValidator(JoiValidator(
+      identifier: JoiIdentifier.alphabets,
+      validator: (value) {
+        _match(
+          RegExp(r'^[a-zA-Z]+$'),
+          value,
+          message ?? '${name ?? ""} not a valid alphabets string',
+        );
+      },
+    ));
+  }
+
+  void whitespace({String? message}) {
+    _compressor.registerValidator(JoiValidator(
+      identifier: JoiIdentifier.whitespace,
+      validator: (value) {
+        _match(
+          RegExp(r'[\s]'),
+          value.trim(),
+          message ?? '${name ?? ""} not a valid whitespace string',
+        );
       },
     ));
   }

@@ -17,6 +17,7 @@ part "types/string.dart";
 
 // ignore: camel_case_types
 typedef joi = JoiX;
+typedef PipelineFunction<T> = JoiX<T> Function(T value);
 
 mixin JoiX<T> implements Defaultable<T> {
   late final ValidatorCompressor<T> _compressor;
@@ -39,6 +40,21 @@ mixin JoiX<T> implements Defaultable<T> {
 
   static JoiX ref(String key) {
     return JoiRefX(key: key);
+  }
+
+  // static JoiX<T> pipeline<T>(PipelineFunction<T> flow) {
+  //   return Pipeline(flow);
+  // }
+
+  void pipeline(PipelineFunction<T> flow) {
+    _compressor.registerValidator(JoiValidator(
+      options: const ValidatorOptions(priority: JoiValidatorPriority.low),
+      identifier: JoiIdentifier.generate,
+      validator: (value) {
+        final result = flow(value).validate();
+        if (!result.isSuccess) throw result.error!;
+      },
+    ));
   }
 
   void required({String? message}) {
@@ -71,7 +87,10 @@ mixin JoiX<T> implements Defaultable<T> {
     if (value != null) {
       _value = value;
     }
-    return _compressor.validate(_value);
+    var validate = _compressor.validate(_value);
+    // print(_value);
+    // print(validate);
+    return validate;
   }
 
   @override

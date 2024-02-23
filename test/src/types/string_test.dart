@@ -750,7 +750,7 @@ void main() {
     group('JoiStringX num validation', () {
       test('String with Number', () {
         // arrange
-        final joiString = "Hello123World".joi();
+        final joiString = "123".joi();
 
         // act
         final result = joiString..num();
@@ -773,13 +773,27 @@ void main() {
 
       test('String with Number (Whitespace)', () {
         // arrange
-        final joiString = "Hello 123 World".joi();
+        final joiString = " 123 ".joi();
 
         // act
         final result = joiString..num();
 
         // assert
-        checkForPass(result.validate());
+        checkForFail(
+            result.validate(), 'String must contain at least one digit');
+      });
+
+      test('String with Number (Whitespace)', () {
+        // arrange
+        final schema = joi.object({
+          "some_no": joi.string()..num(),
+        });
+
+        // act
+        final result = schema.validate(value: {});
+
+        // assert
+        checkForPass(result);
       });
     });
 
