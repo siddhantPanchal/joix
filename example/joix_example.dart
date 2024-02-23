@@ -75,6 +75,7 @@ void pipelineExample() {
   final result = schema.validate(
     value: {"email": "abc@example.com", 'age': 20, "pan": "23ZAABN18J"},
   );
+  //{value: {email: abc@example.com, age: 20, pan: 23ZAABN18J}, result: false, error:  not a valid alphabets string}
   print(result);
 }
 
