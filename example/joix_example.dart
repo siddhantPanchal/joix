@@ -79,10 +79,40 @@ void pipelineExample() {
   print(result);
 }
 
+// void conditionalExample() {
+//   // if age is below 18 then company is null but, if age is 18 or above then company is must
+
+//   final schema = JoiX.object({
+//     "age": joi.num()..required(),
+//     "company": (joi.ref("age").value as num) < 18 ? joi.string() : joi.string()
+//       ..required(),
+//   });
+//   final result = schema.validate(value: {"age": "20"});
+
+//   print(result);
+// }
+
+void orExample() {
+  // if age is in String or in num
+  final schema = JoiX.object({
+    "age": joi.or([
+      joi.num()..required(),
+      joi.string()
+        ..num()
+        ..required()
+    ]),
+  });
+  final result = schema.validate(value: {"age": "20"});
+
+  print(result);
+}
+
 void main() {
   // emailExample();
   // ageExample();
   // mapExample();
   // refExample();
-  pipelineExample();
+  // pipelineExample();
+  // orExample();
+  // conditionalExample();
 }

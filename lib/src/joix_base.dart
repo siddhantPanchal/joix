@@ -12,6 +12,7 @@ import 'validator/validator_options.dart';
 
 part "types/map.dart";
 part "types/num.dart";
+part "types/or.dart";
 part "types/ref.dart";
 part "types/string.dart";
 
@@ -42,9 +43,9 @@ mixin JoiX<T> implements Defaultable<T> {
     return JoiRefX(key: key);
   }
 
-  // static JoiX<T> pipeline<T>(PipelineFunction<T> flow) {
-  //   return Pipeline(flow);
-  // }
+  static JoiX or(List<JoiX> schemas) {
+    return JoiOrX(schemas: schemas);
+  }
 
   void pipeline(PipelineFunction<T> flow) {
     _compressor.registerValidator(JoiValidator(
